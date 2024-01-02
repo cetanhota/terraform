@@ -1,4 +1,17 @@
 ## Terraform
 
-terraform/azure-mysql-fs/private.tf
-terraform/mysql-gcp/private.tf
+azure-mysql-fs/private.tf
+mysql-gcp/private.tf
+
+azure-mysql-fs/.terraform/*
+azure-mysql-fs/.DS_Store
+azure-mysql-fs/.terraform.lock.hcl
+azure-mysql-fs/terraform.tfstate
+azure-mysql-fs/terraform.tfstate.backup
+
+
+mysql-gcp/.terraform/*
+mysql-gcp/.DS_Store
+mysql-gcp/.terraform.lock.hcl
+mysql-gcp/terraform.tfstate
+mysql-gcp/terraform.tfstate.backup

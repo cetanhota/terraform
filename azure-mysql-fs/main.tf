@@ -32,6 +32,7 @@ resource "azurerm_mysql_flexible_server" "mysqlfs" {
   tags = {
     environment = "development"
     database_name = var.database_name
+    owner = var.admin_id
   }
 
   provisioner "local-exec" {
@@ -100,13 +101,13 @@ resource "azurerm_mysql_flexible_server_configuration" "require_secure_transport
   value = "ON"
 }
 
-resource "null_resource" "load_data" {
+# resource "null_resource" "load_data" {
 
-  provisioner "local-exec" {
-    on_failure = continue
-    interpreter = ["/bin/bash", "-c"]
-    command = <<EOT
-        /usr/local/mysql/bin/mysql -h ${azurerm_mysql_flexible_server.mysqlfs.name}.mysql.database.azure.com  -u ${var.admin_id} -p${var.db_password} < /Users/wayne/mysql-load-data.sql
-     EOT
-  }
-}
+#   provisioner "local-exec" {
+#     on_failure = continue
+#     interpreter = ["/bin/bash", "-c"]
+#     command = <<EOT
+#         /usr/local/mysql/bin/mysql -h ${azurerm_mysql_flexible_server.mysqlfs.name}.mysql.database.azure.com  -u ${var.admin_id} -p${var.db_password} < /Users/wayne/mysql-load-data.sql
+#      EOT
+#   }
+# }
