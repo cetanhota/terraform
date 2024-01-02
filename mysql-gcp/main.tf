@@ -1,5 +1,5 @@
 provider "google" {
-  project = "zinc-primer-321323"
+  project = var.project
   #region      = "us-east1"  # Change to your desired region
 }
 
@@ -12,7 +12,7 @@ resource "random_password" "mysqldba_pwd" {
 }
 
 resource "google_sql_database_instance" "weather-srv1" {
-  name             = "weather-srv1"
+  name             = "weather-srv-2"
   database_version = "MYSQL_8_0"
   region           = "us-east1" # Change to your desired region
   settings {
@@ -24,16 +24,18 @@ resource "google_sql_database_instance" "weather-srv1" {
       }
     }
     database_flags {
-      name  = "max_connections"
-      value = 100
+      name  = "audit_log"
+      value = "ON"
     }
   }
 }
 
 resource "google_sql_user" "admin_user" {
   name     = "mysqldba"
+  host     = "%"
   instance = google_sql_database_instance.weather-srv1.name
-  password = random_password.mysqldba_pwd.result # Replace with your desired user password
+  #password = random_password.mysqldba_pwd.result # Replace with your desired user password
+  password = "Sbt3st!9"
 }
 
 resource "google_sql_database" "db_name" {

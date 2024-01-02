@@ -1,0 +1,4 @@
+## Terraform
+
+terraform/azure-mysql-fs/.private.tf
+terraform/mysql-gcp/.private.tf
