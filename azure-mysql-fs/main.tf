@@ -48,8 +48,8 @@ resource "azurerm_mysql_flexible_database" "default_db" {
   name                = var.database_name
   resource_group_name = var.resource_group
   server_name         = azurerm_mysql_flexible_server.mysqlfs.name
-  charset             = "utf8"
-  collation           = "utf8_unicode_ci"
+  charset             = "utf8mb4"
+  collation           = "utf8mb4_0900_ai_ci"
 }
 
 # output "password" {
@@ -94,20 +94,16 @@ resource "azurerm_mysql_flexible_server_configuration" "long_query_time" {
   value = "10"
 }
 
+resource "azurerm_mysql_flexible_server_configuration" "server_error_logs" {
+  name = "error_server_log_file"
+  resource_group_name = var.resource_group
+  server_name = azurerm_mysql_flexible_server.mysqlfs.name
+  value = var.server_error_log
+}
+
 resource "azurerm_mysql_flexible_server_configuration" "require_secure_transport" {
   name = "require_secure_transport"
   resource_group_name = var.resource_group
   server_name = azurerm_mysql_flexible_server.mysqlfs.name
-  value = "ON"
+  value = var.require_secure_transport
 }
-
-# resource "null_resource" "load_data" {
-
-#   provisioner "local-exec" {
-#     on_failure = continue
-#     interpreter = ["/bin/bash", "-c"]
-#     command = <<EOT
-#         /usr/local/mysql/bin/mysql -h ${azurerm_mysql_flexible_server.mysqlfs.name}.mysql.database.azure.com  -u ${var.admin_id} -p${var.db_password} < /Users/wayne/mysql-load-data.sql
-#      EOT
-#   }
-# }

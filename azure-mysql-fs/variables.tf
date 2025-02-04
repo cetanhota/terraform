@@ -22,10 +22,18 @@ variable "audit_log_enabled" {
     default = "ON"
 }
 
+variable "server_error_log" {
+  default = "ON"
+}
+
 variable "audit_log_events" {
-    default = "CONNECTION,GENERAL,TABLE_ACCESS"
+    default = "CONNECTION,GENERAL,ADMIN"
 }
 
 variable "admin_id" {
   default = "mysqldba"
+}
+
+variable "require_secure_transport" {
+  default = "OFF"
 }
